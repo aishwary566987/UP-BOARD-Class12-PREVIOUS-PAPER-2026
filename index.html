@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite School Portal | Previous Year Papers</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ========================================
+        1. ROOT VARIABLES & RESET
+        ========================================
+        */
+        :root {
+            --primary-bg: #05161a;
+            --accent-glow: #00f2ff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --card-gradient: linear-gradient(135deg, rgba(0, 242, 255, 0.1), rgba(0, 0, 0, 0.5));
+            --text-main: #ffffff;
+            --text-dim: #b0bec5;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+        2. NAVIGATION BAR
+        ========================================
+        */
+        header {
+            width: 100%;
+            padding: 25px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 22, 26, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-glow);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .search-pill {
+            padding: 8px 25px;
+            border: 1px solid var(--text-dim);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-pill:hover {
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .info-btn {
+            background: #fff;
+            color: #000;
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+
+        /* ========================================
+        3. HERO SECTION (MAIN INTRO)
+        ========================================
+        */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at top, #0c3b45 0%, #05161a 60%);
+            padding: 0 10%;
+            padding-top: 80px;
+        }
+
+        .hero span.status {
+            color: var(--accent-glow);
+            letter-spacing: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            max-width: 700px;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background: #1e2a2d;
+            color: white;
+            padding: 15px 45px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: #2a3c41;
+            transform: translateY(-5px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--accent-glow);
+            color: white;
+            padding: 15px 45px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            background: rgba(0, 242, 255, 0.1);
+        }
+
+        .neon-divider {
+            width: 80%;
+            height: 4px;
+            background: var(--accent-glow);
+            margin-top: 80px;
+            box-shadow: 0 0 30px var(--accent-glow);
+            position: relative;
+        }
+
+        /* ========================================
+        4. SUBJECT SELECTION SECTION
+        ========================================
+        */
+        .papers-container {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .section-tag {
+            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 50px;
+            display: block;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .subject-card {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    transition: var(--transition);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Isse button hamesha niche rahega */
+    height: 450px; /* Sabhi cards ki ek barabar height */
+    width: 100%;
+    overflow: hidden;
+} 
+
+        .subject-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--accent-glow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-img {
+    width: 100%;
+    height: 220px; /* Image area fix kar diya */
+    background: #0c2d35;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Agar photo badi ho toh bahar na nikle */
+    margin-bottom: 15px;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Photo stretch nahi hogi, sahi se fit hogi */
+}
+
+/* PDF Button ko hamesha ek hi jagah rakhne ke liye */
+.pdf-btn-container {
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+        .subject-card:hover .card-img {
+            background: var(--accent-glow);
+            color: #000;
+        }
+
+        .subject-card h3 {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .subject-card p {
+            font-size: 0.8rem;
+            color: var(--accent-glow);
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+        5. PREVIEW SECTION (SIMILAR TO IMAGE BOTTOM)
+        ========================================
+        */
+        .paper-detail-view {
+            padding: 100px 10%;
+            display: flex;
+            gap: 100px;
+            align-items: center;
+            background: radial-gradient(circle at bottom right, #0c3b45 0%, #05161a 50%);
+        }
+
+        .detail-info {
+            flex: 1;
+        }
+
+        .detail-info h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .detail-info p {
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .feature-list {
+            border-left: 2px solid var(--accent-glow);
+            padding-left: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            margin-bottom: 25px;
+        }
+
+        .feature-item h4 {
+            color: var(--accent-glow);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .preview-img-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .preview-img {
+            width: 400px;
+            height: 550px;
+            border-radius: 20px;
+            background: url('C:\Users\aishw\OneDrive\Desktop\CHAT GPT\itachiclaas12.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--accent-glow);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+        }
+
+        .rating-box {
+            position: absolute;
+            bottom: -30px;
+            background: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: 1px solid var(--accent-glow);
+        }
+
+        /* ========================================
+        6. RESPONSIVENESS
+        ========================================
+        */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .paper-detail-view { flex-direction: column; text-align: center; }
+            .feature-list { border-left: none; padding-left: 0; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; letter-spacing: 4px; }
+            .preview-img { width: 300px; height: 400px; }
+        }
+
+        /* ========================================
+        7. ANIMATIONS
+        ========================================
+        */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1, .hero p, .btn-group {
+            animation: fadeIn 1s ease forwards;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h2 style="font-family: 'Orbitron'; letter-spacing: 2px;">Aishwary <span style="color: var(--accent-glow);">Dixit</span></h2>
+        </div>
+        <nav class="nav-links">
+            <a href="#" class="active">Portal</a>
+            <a href="#">Classes</a>
+            <a href="#">Subject Info</a>
+            <a href="#">Updates</a>
+        </nav>
+        <div class="nav-actions">
+            <div class="search-pill"><i class="fas fa-search"></i> Search Paper</div>
+            <a href="#" class="info-btn">Contact Us</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="status">SESSION 2025-26 NOW LIVE</span>
+        <h1>ACE YOUR EXAMS</h1>
+        <p>Shrouded in knowledge, these previous year papers emerge from the past. With questions that hold untold stories of success, they bring a power to your preparation unlike any seen before.</p>
+        <div class="btn-group">
+            <a href="#papers" class="btn-primary">View Subjects</a>
+            <a href="all_paper.zip" download="School_All_Papers_2024" class="btn-secondary" style="text-decoration: none; display: inline-block; text-align: center;">
+    <i class="fas fa-file-archive"></i> DOWNLOAD ALL PDF
+</a>
+        </div>
+        <div class="neon-divider"></div>
+    </section>
+
+    <section class="papers-container" id="papers">
+        <span class="section-tag">SUBJECTS TO PREPARE</span>
+        
+        <div class="subjects-grid">
+            <div class="subject-card">
+                <div class="card-img">
+    <img src="maths.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+</div>
+                <div class="card-info"></div>
+                <h3>MATHEMATICS</h3>
+                <p>Advanced Trigonometry</p>
+                <div style="margin-top:15px;">
+            </div>
+            <div class="pdf-btn-container">
+        <a href="131-Math.pdf" target="_blank" style="text-decoration:none;">
+            <button style="background:transparent; color:white; border:1px solid #00f2ff; padding:10px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold;">
+                <i class="fas fa-file-pdf"></i> View PDF
+            </button>
+        </a>
+    </div>
+</div>    
+            <div class="subject-card">
+                <div class="card-img">
+    <img src="quantam.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+</div>
+                <h3>PHYSICS</h3>
+                <p>Quantum Mechanics</p>
+                <div style="margin-top:15px;">
+        <a href="151-Physics.pdf" target="_blank" style="text-decoration:none;">
+            <button style="background:transparent; color:white; border:1px solid #00f2ff; padding:8px 20px; border-radius:5px; cursor:pointer; width:100%;">
+                <i class="fas fa-file-pdf"></i> View PDF
+            </button>
+        </a>
+    </div>
+            </div>
+
+            <div class="subject-card" style="border-color: var(--accent-glow); transform: scale(1.08);">
+                <div class="card-img">
+    <img src="biolog.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+</div>
+                <h3>BIOLOGY</h3>
+                <p>Genetics Special</p>
+                <div style="margin-top:15px;">
+            </div>
+             <div class="pdf-btn-container">
+        <a href="153-Biology.pdf" target="_blank" style="text-decoration:none;">
+            <button style="background:transparent; color:white; border:1px solid #00f2ff; padding:10px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold;">
+                <i class="fas fa-file-pdf"></i> View PDF
+            </button>
+        </a>
+    </div>
+</div>    
+            <div class="subject-card">
+                <div class="card-img">
+    <img src="Tony Stark.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+</div>
+                <h3>CHEMISTRY</h3>
+                <p>Organic Bonds</p>
+                <div style="margin-top:15px;">
+            </div>
+            <div class="pdf-btn-container">
+        <a href="152-Chemistry.pdf" target="_blank" style="text-decoration:none;">
+            <button style="background:transparent; color:white; border:1px solid #00f2ff; padding:10px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold;">
+                <i class="fas fa-file-pdf"></i> View PDF
+            </button>
+        </a>
+    </div>
+</div>
+
+            <div class="subject-card">
+                <div class="card-img">
+    <img src="english.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+</div>
+                <h3>ENGLISH</h3>
+                <p>Literature & Grammar</p>
+                <div style="margin-top:15px;">
+            </div>
+               <div class="pdf-btn-container">
+        <a href="117-English.pdf" target="_blank" style="text-decoration:none;">
+            <button style="background:transparent; color:white; border:1px solid #00f2ff; padding:10px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold;">
+                <i class="fas fa-file-pdf"></i> View PDF
+            </button>
+        </a>
+    </div>
+</div>
+
+        </div>
+    </section>
+
+    <section class="paper-detail-view">
+        <div class="detail-info">
+            <h2>UP BOARD EXAM<br><span style="color:var(--accent-glow)">PREVIOUS PAPER 2026</span></h2>
+            <p><b><u>WREAK UP TO REALITY</b></u>
+Success is not built on shortcuts or luck, it is the result of daily discipline, smart practice, and honest effort. Students who accept reality and practice with previous years’ papers gain clarity, confidence, and control over exam pressure. Every paper helps you understand patterns, strengthen weak areas, and improve time management. Dreams alone do not create toppers; consistency and determination do. This platform is for students who stop making excuses, face reality, and work with focus to turn preparation into real success...</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>Smart Marking</h4>
+                    <p>Includes step-by-step marking schemes from board experts.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>High Probability</h4>
+                    <p>Questions categorized by their frequency in last 5 years.</p>
+                </div>
+            </div>
+
+            <a href="#" style="color: var(--accent-glow); text-decoration: none; font-weight: bold; border-bottom: 1px solid;">READ FULL INSTRUCTIONS</a>
+        </div>
+
+<div class="preview-img-container">
+    <img src="itachibook.jpg" class="preview-img" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px; border: 1px solid var(--accent-glow);">
+    
+    <div class="rating-box">
+        <span>Importance Level: </span>
+        <span style="color: #ffd700;">★★★★★</span>
+    </div>
+</div>
+    </section>
+
+    <footer style="text-align: center; padding: 50px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-dim);">
+        <p>&copy; 2026 UP BOARD PREVIOUS PAPER  |<b> INSTA:- @aishwarycoder</b></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
